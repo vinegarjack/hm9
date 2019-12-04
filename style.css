@@ -1,0 +1,22 @@
+table, th, td {
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 75%;
+    
+}
+table {
+    margin: auto;
+}
+td ,th{
+    width: fit-content;
+    height: 2em;
+}
+td:hover, th:hover {
+    background-color: grey;
+}
+.modal {
+    display: block;
+    visibility: hidden;
+}
