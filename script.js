@@ -3,13 +3,13 @@
 
     const bodyTable = document.getElementById('data-table'); 
     const sortTable = document.getElementById('table-head');
-    
-    async  function dataFrom(sortDefault = 'id') {        
+
+    async  function dataFrom(sortFieldDefault = 'id', order = 1) {        
         const response = await fetch('https://jsonplaceholder.typicode.com/users');
         const userInfo = await response.json();
-        const arrUserInfo = Array.from(userInfo).sort( (a,b)=>{ // sort array from json by parametr
-            if (a[sortDefault] > b[sortDefault]) {return 1}
-            if (a[sortDefault] < b[sortDefault]) {return -1}
+        const arrUserInfo = Array.from(userInfo).sort((a,b)=>{ // sort array from json by parametr
+            if (a[sortFieldDefault] > b[sortFieldDefault]) {return order}
+            if (a[sortFieldDefault] < b[sortFieldDefault]) {return -(order)}
             return 0;
         });
 
@@ -31,6 +31,7 @@
         event.preventDefault();
         const sortField = event.target.getAttribute('class');
         //console.log(sortField);
-        dataFrom(sortField);
+        event.target.dataset.order = -(event.target.dataset.order);
+        dataFrom(sortField, event.target.dataset.order);
     }
 })();
