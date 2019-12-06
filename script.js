@@ -4,7 +4,8 @@
     const bodyTable = document.getElementById('data-table'); 
     const sortTable = document.getElementById('table-head');
     const modalTarget = document.querySelector('.modal');
-    const modalClose = document.querySelector('.modal');
+    //const modalClose = document.querySelector('.modal');
+    const table = document.querySelector('.container');
 
     //console.log(modalTarget);
 
@@ -26,14 +27,16 @@
                             </tr>`,'');  
     }   
 
-    dataFromServer();
+    dataFromServer(); //render table with data from server
     
     //console.log(sortTable);
     sortTable.addEventListener('click', sortByField);
     bodyTable.addEventListener('click', showModalWindow);
-    modalClose.addEventListener('click',() =>{
+
+    modalTarget.addEventListener('click',() =>{
         modalTarget.style.opacity = 0;
         modalTarget.style.zIndex = 10;
+        table.style.pointerEvents = 'all';
     })
 
     function sortByField(event){
@@ -52,26 +55,26 @@
         const arrUserInfo = Array.from(userInfo).filter(user => user.id == userId); // как сделать чтобы сравниение было через ===
         const modalUserInfo = arrUserInfo[0];
         console.log(modalUserInfo);
-        modalTarget.innerHTML = arrUserInfo.reduce((html, user) => 
-                        html + `<p> Name : ${user.name} </p>
-                                <p> Username : ${user.username} </p>
-                                <p> Email : ${user.email} </p>
-                                <p> Website : ${user.website} </p>
-                                <p> Phone : ${user.phone} </p>
+        modalTarget.innerHTML =`<p> Name : ${modalUserInfo.name} </p>
+                                <p> Username : ${modalUserInfo.username} </p>
+                                <p> Email : ${modalUserInfo.email} </p>
+                                <p> Website : ${modalUserInfo.website} </p>
+                                <p> Phone : ${modalUserInfo.phone} </p>
                                 <p> Address:</p> 
-                                <ul><li> City: ${user.address.city} </li>
-                                <li> street: ${user.address.street} </li>
-                                <li> suite: ${user.address.suite} </li>
-                                <li> geo: lat :${user.address.geo.lat}, lng: ${user.address.geo.lng}</li>
-                                <li> zipcode: ${user.address.zipcode} </li></ul>
+                                <ul><li> City: ${modalUserInfo.address.city} </li>
+                                <li> street: ${modalUserInfo.address.street} </li>
+                                <li> suite: ${modalUserInfo.address.suite} </li>
+                                <li> geo: lat :${modalUserInfo.address.geo.lat}, lng: ${modalUserInfo.address.geo.lng}</li>
+                                <li> zipcode: ${modalUserInfo.address.zipcode} </li></ul>
                                 <p> Company:</p>
-                                <ul><li> name: ${user.company.name} </li>
-                                <li> bs: ${user.company.bs} </li>
-                                <li> catchPhrase: ${user.company.catchPhrase} </li></ul>
-                                `,'');
+                                <ul><li> name: ${modalUserInfo.company.name} </li>
+                                <li> bs: ${modalUserInfo.company.bs} </li>
+                                <li> catchPhrase: ${modalUserInfo.company.catchPhrase} </li></ul>
+                                `;
                             
         modalTarget.style.opacity = 1;
         modalTarget.style.zIndex = 30;
+        table.style.pointerEvents = 'none';
     }
 
     
